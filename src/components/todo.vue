@@ -4,18 +4,19 @@
 </span>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+export default Vue.extend({
     name: 'todo',
     props: {
-        todo: Object
+        todo: Object as ()=>Itodo
     },
     computed: {
-        text() {
-            return this.todo.text
+        text():string {
+            return this.todo.text2
         }
     }
-}
+})
 </script>
 
 <style>

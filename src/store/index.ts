@@ -1,9 +1,7 @@
-import Vue from 'vue'
 import Vuex from 'vuex'
 import todoStore from './todos.store';
-Vue.use(Vuex)
 
-export default new Vuex.Store({
+export default Vuex.createStore({
   state: {
     name: ''
   },
@@ -30,4 +28,4 @@ export default new Vuex.Store({
   modules: {
     todoStore
   }
-})
+});

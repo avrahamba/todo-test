@@ -18,16 +18,20 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
     lottiePlayer
 } from 'lottie-player-vue';
-import todo from '../components/todo';
-export default {
+import Vue from 'vue';
+import todo from '../components/todo.vue';
+interface Idata{
+    newTodo:string
+}
+export default Vue.extend({
     name: 'todos-page',
-    data() {
+    data():Idata {
         return {
-            newTodo: ''
+            newTodo: '',
         }
     },
     created() {
@@ -37,10 +41,10 @@ export default {
         this.$store.dispatch('initTodos')
     },
     computed: {
-        name() {
+        name():string {
             return this.$store.getters.name
         },
-        todos() {
+        todos():Itodo[] {
             return this.$store.getters.todos
         }
     },
@@ -49,12 +53,12 @@ export default {
             this.$store.dispatch('addTodo', this.newTodo)
             this.newTodo = ''
         },
-        changeTodo(ev, todo) {
+        changeTodo(ev:any, todo:Itodo) {
             todo = JSON.parse(JSON.stringify(todo))
             todo.done = ev.target.checked
             this.$store.dispatch('changeTodo', todo)
         },
-        removeTodo(todo) {
+        removeTodo(todo:Itodo) {
             this.$store.dispatch('removeTodo', todo)
         }
     },
@@ -62,5 +66,5 @@ export default {
         lottiePlayer,
         todo
     }
-}
+})
 </script>

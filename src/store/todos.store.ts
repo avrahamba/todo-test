@@ -1,5 +1,20 @@
 import utils from '../services/utils';
-export default {
+import {Module} from 'vuex';
+interface Imodule {
+    todos:Itodo[]
+}
+
+const todo:Itodo={
+    id:'dsfdsf',
+    text2:'sadsada',
+    done:true
+}
+type todoKey = 'id'|'text2' 
+let a:todoKey  = 'id'
+a = 'text2'
+todo[a] ='dsfdsf'
+
+const mudule : Module<Imodule,any> ={
     state: {
         todos: []
     },
@@ -12,7 +27,7 @@ export default {
         setTodos(state, todos) {
             state.todos = todos
         },
-        addTodo(state, todo) {
+        addTodo(state, todo:Itodo) {
             state.todos.push(todo)
         },
         changeTodo(state, todo) {
@@ -26,18 +41,17 @@ export default {
     },
     actions: {
         initTodos({ commit }) {
-            let todos = localStorage.getItem('todos')
+            let todos:string|null|Itodo[] = localStorage.getItem('todos')
             if (!todos) {
-                todos = []
-                localStorage.setItem('todos', todos)
+                localStorage.setItem('todos', '[]')
             }else{
                 todos = JSON.parse(todos)
             }
             commit('setTodos', todos)
         },
-        addTodo({ commit, state }, text) {
-            const todo = {
-                text,
+        addTodo({ commit, state }, text2) {
+            const todo:Itodo = {
+                text2,
                 id: utils.makeid(),
                 done: false
             }
@@ -54,3 +68,4 @@ export default {
         }
     },
 }
+export default mudule
